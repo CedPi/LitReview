@@ -1,0 +1,33 @@
+<div class="post ticket {% if nested == 'nested' %} {{ nested }} {% endif %}">
+    <div>
+        <div class="info ticket__author">
+            {% if user.id == post.user.id %}
+            Vous avez
+            {% else %}
+            {{ post.user }} a
+            {% endif %}
+            demandé une critique
+        </div>
+        <div class="info ticket__date">{{ post.time_created }}</div>
+    </div>
+    <div class="card horizontal">
+        <div class="card-image">
+            <img src="{{ post.image.url }}">
+        </div>
+        <div class="card-stacked">
+            <div class="card-content">
+                <h5>{{ post.title }}</h5>
+                <p>{{ post.description }}</p>
+            </div>
+            {% if not nested == "nested" %}
+            <div class="card-action">
+                {% if post.id in closed_tickets %}
+                <a href="#rev_{{ post.id }}" class="btn yellow lighten-3 btn-rev-available">Critique disponible</a>
+                {% else %}
+                <a href="{% url 'review-answer' post.id %}" class="btn">Créer une critique</a>
+                {% endif %}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>

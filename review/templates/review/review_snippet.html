@@ -1,0 +1,32 @@
+{% load custom_filters %}
+
+<div class="post review" id="rev_{{ post.ticket.id }}">
+    <div>
+        <div class="info ticket__author">
+            {% if user.id == post.user.id %}
+            Vous avez
+            {% else %}
+            {{ post.user }} a
+            {% endif %}
+            publié une critique
+        </div>
+        <div class="info ticket__date">{{ post.time_created }}</div>
+    </div>
+    <div class="card horizontal">
+        <div class="card-stacked">
+            <div class="card-content">
+                <h5>{{ post.headline }}</h5>
+                {% with empty=post.rating|add:-5 %}
+                {% for i in post.rating|num %}
+                <i class="material-icons">star</i>
+                {% endfor %}
+                {% for i in empty|num %}
+                <i class="material-icons">star_border</i>
+                {% endfor %}
+                {% endwith %}
+                <p>{{ post.body }}</p>
+            </div>
+            {% include 'review/ticket_snippet.html' with post=post.ticket nested="nested" %}
+        </div>
+    </div>
+</div>

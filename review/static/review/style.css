@@ -1,0 +1,160 @@
+.dropdown-content {
+    width: max-content !important;
+    height: auto !important;
+}
+
+select {
+    display: block;
+}
+
+.custom-card {
+    border-radius: 5px;
+    background-color: #CCC !important;
+    margin-bottom: 20px;
+}
+
+.custom-card:hover {
+    background-color: #AAA !important;
+}
+
+.custom-card__title {
+    display: -webkit-box !important;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    white-space: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: x-large;
+    width: 100% !important;
+}
+
+.custom-card__img {
+    width: 25%;
+    padding: 10px;
+}
+
+.custom-card img {
+    width: 130px;
+    height: 200px;
+}
+
+.custom-card__rating,
+.custom-card__controls {
+    height: 10px !important;
+}
+
+.custom-card__body {
+    display: -webkit-box !important;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    height: 100px !important;
+    white-space: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.custom-card__controls {
+    visibility: hidden;
+    width: 40%;
+    padding-right: 10px;
+    text-align: right;
+
+}
+
+.modal {
+    width: 30%;
+}
+
+.col .container {
+    margin-right: 10px;
+    margin-left: 70px;
+}
+
+.error {
+    color: red;
+}
+
+.msg {
+    padding: 5px;
+    border-radius: 5px;
+    border-width: 2px;
+    border-style: solid;
+    margin-top: 3px;
+    font-weight: bold;
+    text-align: center;
+    display: inline-flex;
+    vertical-align: middle;
+    width: 100%;
+}
+
+.msg_text {
+    margin-left: 5px;
+}
+
+.warning {
+    color: orange;
+    border-color: orange;
+    background-color: lightyellow;
+}
+
+.success {
+    border-color: green;
+    color: green;
+    background-color: #DDFFEE;
+}
+
+.post {
+    padding: 10px;
+    border-radius: 5px;
+    border-style: solid;
+    border-width: 1px;
+}
+
+.nested {
+    width: 90%;
+    margin: auto;
+    margin-top: 20px;
+}
+
+.ticket {
+    background-color: #FFFFFA;
+    border-color: lightsalmon;
+}
+
+.review {
+    background-color: #FAFAFF;
+    border-color: lightskyblue;
+}
+
+.info {
+    width: 49%;
+    display: inline-block;
+}
+
+.ticket__date {
+    text-align: right;
+}
+
+.card {
+    box-shadow: 0 0 0 !important;
+    background-color: transparent !important;
+}
+
+.card-image {
+    width: 100px;
+    height: 140px;
+}
+
+.card-content {
+    padding: 0px 2px 2px 15px !important;
+}
+
+.card-action {
+    text-align: right;
+    border-width: 0 !important;
+    padding: 0 15px 0 0 !important
+}
+
+.btn-rev-available {
+    color: orange;
+}

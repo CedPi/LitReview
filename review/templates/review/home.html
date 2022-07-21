@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% load custom_filters %}
+
+{% block content %}
+
+<div class="container">
+    <h2 class>Bienvenue sur LITReview !!</h2>
+    {% for post in posts %}
+    <div class="row">
+        <div class="col s8 offset-m2">
+            {% if post|objtype == "Review" %}
+            {% include 'review/review_snippet.html' %}
+            {% elif post|objtype == "Ticket" %}
+            {% include 'review/ticket_snippet.html' %}
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</div>
+
+
+{% endblock content %}

@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+    <h2>Mes abonnements</h2>
+    <form action="{% url 'subscriptions' %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="S'abonner" class="btn">
+    </form>
+    {% if error %}
+    <span class="error">{{ error }}</span>
+    {% endif %}
+
+    <br><br>
+    <h5>Abonnements</h5>
+    {% for u in f_users %}
+    <div class="row">
+        <div class="col s3">{{ u.followed_user }}</div>
+        <div class="col s9"><a href="{% url 'subscription-cancel' u.id %}" class="grey darken-2 btn">Se désabonner</a>
+        </div>
+    </div>
+    {% endfor %}
+
+    <br><br>
+    <h5>Abonnés</h5>
+    {% for u in users %}
+    <div class="row">
+        <div class="col s12">{{ u.user }}</div>
+    </div>
+    {% endfor %}
+</div>
+
+
+{% endblock content %}

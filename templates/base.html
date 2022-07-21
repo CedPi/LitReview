@@ -1,0 +1,72 @@
+{% load static %}
+
+<html>
+
+<head>
+    <title>LITReview</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="{% static 'review/style.css' %}">
+</head>
+
+<body>
+    <ul id="dropdown1" class="dropdown-content">
+        <li><a href="{% url 'ticket-list' %}">Mes Tickets</a></li>
+        <li><a href="{% url 'review-list' %}">Mes Reviews</a></li>
+    </ul>
+    <ul id="dropdown3" class="dropdown-content">
+        <li><a>Connecté en tant que {{ user.username }}</a></li>
+        <li><a href="{% url 'password-change' %}">Changer MdP</a></li>
+        <li><a href="{% url 'logout' %}">Me déconnecter</a></li>
+    </ul>
+    <nav>
+        <div class="nav-wreapper grey darken-3">
+            <a href="{% url 'home' %}">LITReview</a>
+            <ul class="right">
+                {% if user.is_authenticated %}
+                <li><a class="dropdown-trigger" href="#!" data-activates="dropdown1">Mes Posts</a></li>
+                <li><a href="{% url 'subscriptions' %}">Mes Abonnements</a></li>
+                <li><a class="dropdown-trigger" href="#!" data-activates="dropdown3">Mon Profil</a></li>
+                {% else %}
+                <li><a href="{% url 'signup' %}">S'inscrire</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+
+    {% if messages %}
+    {% for message in messages %}
+    <div class="msg {{ message.tags }}">
+        <i class="material-icons">
+            {% if message.tags == "success" %}
+            check_circle
+            {% elif message.tags == "warning" %}
+            warning
+            {% endif %}
+        </i>
+        <div class="msg_text">{{ message }}</div>
+    </div>
+    {% endfor %}
+    {% endif %}
+
+    {% block content %}{% endblock content %}
+
+    <div id="modal_delete" class="modal">
+        <div class="modal-content">
+            <h4>Confirmation de suppression</h4>
+            <p>Vous êtes sur le point de supprimer votre post</p>
+            <p>Cette suppression est définitive. Continuer ?</p>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close grey darken-1 waves-effect waves-light btn">Non</a>
+            <a href="#!" class="delete-btn red darken-4 waves-effect waves-light btn">Oui, supprimer !</a>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
+    <script src="{% static 'review/script.js' %}"></script>
+</body>
+
+</html>

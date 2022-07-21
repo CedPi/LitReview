@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col s12 center-align">
+            <h1>Login</h1>
+        </div>
+    </div>
+    <form action="" method="post">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col s6 offset-m3">
+                {{ form.username.label }}
+                {{ form.username }}
+                {{ form.password.label }}
+                {{ form.password }}
+                <br><br>
+                <input type="submit" value="Se Connecter" class="btn lighten-2">
+            </div>
+        </div>
+    </form>
+</div>
+
+{% endblock content %}
