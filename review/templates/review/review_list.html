@@ -15,47 +15,39 @@
         </div>
     </div>
     <div class="row">
-        {% for review in reviews %}
-        <div class="col s5 offset-m1">
-            <div class="custom-card">
-                <table>
-                    <tr>
-                        <td class="custom-card__img" rowspan="4"><img src="{{ review.ticket.image.url }}" alt=""></td>
-                    </tr>
-                    <tr>
-                        <td class="custom-card__title" colspan="3">{{ review.ticket.title }}</td>
-                    </tr>
-                    <tr>
-                        <td class="custom-card__body" custom-card__body>{{ review.headline }}</td>
-                    </tr>
-                    <tr>
-                        <td class="custom-card__rating">
-                            {% with empty=review.rating|add:-5 %}
-                            {% for i in review.rating|num %}
-                            <i class="material-icons">star</i>
-                            {% endfor %}
-                            {% for i in empty|num %}
-                            <i class="material-icons">star_border</i>
-                            {% endfor %}
-                            {% endwith %}
-                        </td>
-                        <td class=" custom-card__controls">
-                            <a class="grey darken-2 waves-effect waves-light btn">
-                                <i class="material-icons">visibility</i></a>
-                            <a href="{% url 'review-edit' review.id %}"
-                                class="grey darken-2 waves-effect waves-light btn">
-                                <i class="material-icons">edit</i></a>
-                            <a href="#modal_delete" class="red darken-4 waves-effect waves-light btn modal-trigger"
-                                data-title="{{ review.ticket.title }}"
-                                data-delete-url="{% url 'review-delete' review.id %}" data-post-type="review">
-                                <i class="material-icons">delete</i>
-                            </a>
-                        </td>
-                    </tr>
-                </table>
+        <div class="col s12">
+            {% for review in reviews %}
+            <div class="review-row">
+                <div class="review-row__img"><img src="{{ review.ticket.image.url }}" alt=""></div>
+                <div class="review-row__title">{{ review.ticket.title }}</div>
+                <div class="review-row__rating">
+                    {% with empty=review.rating|add:-5 %}
+                    {% for i in review.rating|num %}
+                    <i class="material-icons">star</i>
+                    {% endfor %}
+                    {% for i in empty|num %}
+                    <i class="material-icons">star_border</i>
+                    {% endfor %}
+                    {% endwith %}
+                </div>
+                <div class="review-row__date">{{ review.time_created }}</div>
+                <div class="review-row__actions">
+                    <a class="toggle-visible grey darken-2 waves-effect waves-light btn">
+                        <i class="material-icons">visibility</i></a>
+                    <a href="{% url 'review-edit' review.id %}" class="grey darken-2 waves-effect waves-light btn">
+                        <i class="material-icons">edit</i></a>
+                    <a href="#modal_delete" class="red darken-4 waves-effect waves-light btn modal-trigger"
+                        data-title="{{ review.ticket.title }}" data-delete-url="{% url 'review-delete' review.id %}"
+                        data-post-type="review">
+                        <i class="material-icons">delete</i>
+                    </a>
+                </div>
+                <div class="review-row__headline">{{ review.headline }}</div>
+                <div class="review-row__body">{{ review.body }}</div>
             </div>
+            {% endfor %}
         </div>
-        {% endfor %}
+
     </div>
 
     {% endblock content %}

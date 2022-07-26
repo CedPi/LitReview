@@ -1,18 +1,21 @@
 $(document).ready(function () {
 
-    let h = $(".custom-card__controls").css('height');
-    // $(".custom-card__controls").offsetTop = 36;
-    // alert(h);
-
     $(".dropdown-trigger").dropdown();
 
-    $(".custom-card").hover(function () {
-        let elt = $(this).find(".custom-card__controls");
+    $(".ticket-row").hover(function () {
+        let elt = $(this).find(".ticket-row__actions");
         if (elt.css('visibility') == 'hidden')
             elt.css('visibility', 'visible')
         else if (elt.css('visibility') == 'visible')
             elt.css('visibility', 'hidden');
-        // elt.toggle();
+    });
+
+    $(".review-row").hover(function () {
+        let elt = $(this).find(".review-row__actions");
+        if (elt.css('visibility') == 'hidden')
+            elt.css('visibility', 'visible')
+        else if (elt.css('visibility') == 'visible')
+            elt.css('visibility', 'hidden');
     });
 
     $(".modal-trigger").click(function () {
@@ -24,5 +27,23 @@ $(document).ready(function () {
         p0.innerHTML = "Vous êtes sur le point de supprimer votre " + post_type + " concernant <b>" + title + "</b>";
         delete_btn.attr("href", $(this).attr('data-delete-url'));
         $("#modal_delete").openModal();
+    });
+
+    $(".yellow").click(function () {
+        let target_id = $(this).attr("data-href");
+        let target = $(target_id);
+        $('html, body').animate({
+            scrollTop: $(target).offset().top
+        }, 400)
+    });
+
+    $(".toggle-visible").click(function () {
+        let parent = $(this).parent().parent();
+        $(".review-row__headline").slideUp();
+        $(".review-row__body").slideUp();
+        let head = parent.find(".review-row__headline");
+        let body = parent.find(".review-row__body");
+        $(head).slideToggle();
+        $(body).slideToggle();
     });
 })

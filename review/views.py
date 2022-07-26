@@ -12,12 +12,16 @@ from review.models import Ticket, Review, UserFollows
 @login_required
 def home_page(request):
     posts = []
-    reviews = Review.objects.all().order_by("time_created")
+    followed = UserFollows.objects.filter(user_id=request.user.id).values_list("followed_user_id")
+    followed_list = list(followed)
+    followed_list.append(request.user.id)
+    print(followed_list)
+    reviews = Review.objects.filter(user_id__in=followed_list)
     closed_tickets = reviews.values_list("ticket_id", flat=True)
-    tickets = Ticket.objects.all().order_by("time_created")
+    tickets = Ticket.objects.filter(user_id__in=followed_list)
     posts += list(reviews) + list(tickets)
     posts.sort(key=lambda o: (o.time_created), reverse=True)
-    print(closed_tickets)
+    # print(closed_tickets)
     return render(
         request,
         "review/home.html",
@@ -43,7 +47,7 @@ def ticket_add(request):
 def ticket_edit(request, ticket_id):
     ticket = Ticket.objects.get(id=ticket_id)
     if request.method == "POST":
-        form = TicketForm(request.POST, instance=ticket)
+        form = TicketForm(request.POST, request.FILES, instance=ticket)
         if form.is_valid():
             ticket = form.save()
             return redirect("ticket-list")

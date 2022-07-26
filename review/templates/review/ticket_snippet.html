@@ -22,7 +22,7 @@
             {% if not nested == "nested" %}
             <div class="card-action">
                 {% if post.id in closed_tickets %}
-                <a href="#rev_{{ post.id }}" class="btn yellow lighten-3 btn-rev-available">Critique disponible</a>
+                <a data-href="#rev_{{ post.id }}" class="btn yellow lighten-3 btn-rev-available">Critique disponible</a>
                 {% else %}
                 <a href="{% url 'review-answer' post.id %}" class="btn">Créer une critique</a>
                 {% endif %}

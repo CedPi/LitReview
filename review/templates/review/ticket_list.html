@@ -14,38 +14,25 @@
         </div>
     </div>
     <div class="row">
-        {% for ticket in tickets %}
-        <div class="col s5 offset-m1">
-            <div class="custom-card">
-                <table>
-                    <tr>
-                        <td class="custom-card__img" rowspan="4"><img src="{{ ticket.image.url }}" alt=""></td>
-                    </tr>
-                    <tr>
-                        <td class="custom-card__title" colspan="3">{{ ticket.title }}</td>
-                    </tr>
-                    <tr>
-                        <td class="custom-card__body" custom-card__body>{{ ticket.description }}</td>
-                    </tr>
-                    <tr>
-                        <td class="custom-card__rating">Demandeur:<br>{{ ticket.user }}</td>
-                        <td class=" custom-card__controls">
-                            <a class="grey darken-2 waves-effect waves-light btn">
-                                <i class="material-icons">visibility</i></a>
-                            <a href="{% url 'ticket-edit' ticket.id %}"
-                                class="grey darken-2 waves-effect waves-light btn">
-                                <i class="material-icons">edit</i></a>
-                            <a href="#modal_delete" class="red darken-4 waves-effect waves-light btn modal-trigger"
-                                data-title="{{ ticket.title }}" data-delete-url="{% url 'ticket-delete' ticket.id %}"
-                                data-post-type="ticket">
-                                <i class="material-icons">delete</i>
-                            </a>
-                        </td>
-                    </tr>
-                </table>
+        <div class="col s12">
+            {% for ticket in tickets %}
+            <div class="ticket-row">
+                <div class="ticket-row__img"><img src="{{ ticket.image.url }}" alt=""></div>
+                <div class="ticket-row__title">{{ ticket.title }}</div>
+                <div class="ticket-row__date">{{ ticket.time_created }}</div>
+                <div class="ticket-row__actions">
+                    <a href="{% url 'ticket-edit' ticket.id %}" class="grey darken-2 waves-effect waves-light btn">
+                        <i class="material-icons">edit</i></a>
+                    <a href="#modal_delete" class="red darken-4 waves-effect waves-light btn modal-trigger"
+                        data-title="{{ ticket.title }}" data-delete-url="{% url 'ticket-delete' ticket.id %}"
+                        data-post-type="ticket">
+                        <i class="material-icons">delete</i>
+                    </a>
+                </div>
+                <div class="ticket-row__body">{{ ticket.description }}</div>
             </div>
+            {% endfor %}
         </div>
-        {% endfor %}
     </div>
 
     {% endblock content %}
