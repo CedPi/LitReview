@@ -142,12 +142,12 @@ select {
 }
 
 .ticket-row__date {
-    width: 10%;
+    width: 35%;
 }
 
 .ticket-row__actions {
     text-align: right;
-    width: 18%;
+    width: 62%;
     visibility: hidden;
 }
 
@@ -182,17 +182,19 @@ select {
 }
 
 .review-row__title {
-    width: 48%;
+    margin-left: 20px;
+    width: 50%;
     font-size: 2em;
 
 }
 
 .review-row__rating {
-    width: 15%;
+    text-align: right;
+    width: 36%;
 }
 
 .review-row__date {
-    width: 10%;
+    width: 55%;
 }
 
 .review-row__headline,
@@ -206,6 +208,6 @@ select {
 
 .review-row__actions {
     text-align: right;
-    width: 18%;
+    width: 42%;
     visibility: hidden;
 }

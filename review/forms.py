@@ -1,5 +1,8 @@
 from dataclasses import field
+from urllib import request
 from django import forms
+from django.contrib.auth import get_user
+from django.contrib.auth.models import User
 from review.models import Ticket, Review, UserFollows
 
 
@@ -28,6 +31,13 @@ class ReviewForm(forms.ModelForm):
 
 
 class FollowUserForm(forms.ModelForm):
+
+    def __init__(self, user, *args, **kwargs):
+        super(FollowUserForm, self).__init__(*args, **kwargs)
+        choices = User.objects.exclude(id__in=[user.id])
+        users = forms.ModelChoiceField(required=True, queryset=choices)
+        self.fields['followed_user'] = users
+
     class Meta:
         model = UserFollows
         fields = "__all__"

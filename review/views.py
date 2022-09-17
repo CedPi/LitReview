@@ -134,9 +134,9 @@ def subscriptions(request):
     uf = UserFollows.objects.all()
     followed_users = uf.filter(user=request.user.id)
     users = uf.filter(followed_user=request.user.id)
-    form = FollowUserForm()
+    form = FollowUserForm(user=request.user)
     if request.method == "POST":
-        form = FollowUserForm(request.POST)
+        form = FollowUserForm(user=request.user, data=request.POST)
         if form.is_valid():
             uf = form.save(commit=False)
             uf.user = request.user

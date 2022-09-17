@@ -5,16 +5,17 @@
 <div class="container">
 
     <div class="row">
-        <div class="col s12">
-            <h2>Mes tickets</h2>
+        <div class="col s10 offset-m1 center-align">
+            <h3>Mes tickets</h3>
             <a href="{% url 'ticket-add' %}" class="waves-effect waves-light btn">
                 <i class="material-icons">add</i>
                 Nouveau ticket
             </a>
         </div>
     </div>
+    <br><br>
     <div class="row">
-        <div class="col s12">
+        <div class="col s10 offset-m1">
             {% for ticket in tickets %}
             <div class="ticket-row">
                 <div class="ticket-row__img"><img src="{{ ticket.image.url }}" alt=""></div>
