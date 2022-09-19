@@ -1,6 +1,7 @@
 from urllib import response
 from django.db import IntegrityError
 from django.db.models import Q
+from django.db import IntegrityError, transaction
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -80,23 +81,51 @@ def ticket_delete(request, ticket_id):
 
 @login_required
 def review_add(request, ticket_id=None):
+    form = None
+    ticketForm = None
+    ticket = None
     init_form = {}
+    context = {}
     if ticket_id is not None:
         init_form["ticket"] = ticket_id
+        ticket = Ticket.objects.get(id=ticket_id)
+        context["post"] = ticket
+    else:
+        ticketForm = TicketForm(initial={"user": request.user})
+        context["ticketForm"] = ticketForm
+        # pass
+    # form = ReviewTicketForm(initial=init_form)
     form = ReviewForm(initial=init_form)
     if request.method == "POST":
         form = ReviewForm(request.POST)
+        ticketForm = TicketForm(request.POST, request.FILES)
+        if ticket_id is None:
+            if ticketForm.is_valid():
+                ticket = ticketForm.save(commit=False)
+                ticket.user_id = request.user.id
         if form.is_valid():
             review = form.save(commit=False)
             review.user_id = request.user.id
-            review.save()
+            review.ticket = ticket
+            try:
+                with transaction.atomic():
+                    if ticket_id is None:
+                        ticket.save()
+                    review.save()
+            except IntegrityError:
+                pass
             return redirect("review-list")
-    return render(request, "review/review_add.html", context={"form": form})
+    context["form"] = form
+    context["ticketForm"] = ticketForm
+    return render(request, "review/review_add.html", context=context)
 
 
 @login_required
 def review_edit(request, review_id):
+    context = {}
     review = Review.objects.get(id=review_id)
+    context["post"] = review.ticket
+    context["edit"] = True
     if request.method == "POST":
         form = ReviewForm(request.POST, instance=review)
         if form.is_valid():
@@ -104,10 +133,11 @@ def review_edit(request, review_id):
             return redirect("review-list")
     else:
         form = ReviewForm(instance=review)
+        context["form"] = form
         return render(
             request,
             "review/review_add.html",
-            context={"form": form, "title": review.ticket.title},
+            context=context,
         )
 
 

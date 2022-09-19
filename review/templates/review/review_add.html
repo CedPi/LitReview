@@ -3,13 +3,26 @@
 {% block content %}
 
 <div class="container">
-    {% if title %}
-    <h3>Modification review : {{ title }}</h3>
+    {% if post %}
+    <br>
+    {% include 'review/ticket_snippet.html' %}
+    {% endif %}
+    {% if edit %}
+    <h3>Modification review : {{ post.title }}</h3>
+    {% else %}
+    {% if post %}
+    <h3>Review de {{ post.title }}</h3>
     {% else %}
     <h3>Nouvelle review</h3>
     {% endif %}
-    <form action="" method="post">
+    {% endif %}
+    <form action="" method="post" enctype="multipart/form-data">
         {% csrf_token %}
+        {% if not post %}
+        <h5>Création du ticket</h5>
+        {{ ticketForm }}<br><br>
+        <h5>Critique associée</h5>
+        {% endif %}
         {{ form }}
         <input class="btn" type="submit" value="Valider">
     </form>

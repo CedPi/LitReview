@@ -1,7 +1,4 @@
-from dataclasses import field
-from urllib import request
 from django import forms
-from django.contrib.auth import get_user
 from django.contrib.auth.models import User
 from review.models import Ticket, Review, UserFollows
 
@@ -17,17 +14,12 @@ class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review
         fields = "__all__"
-        exclude = ("user",)
+        exclude = ("user", "ticket",)
 
     def __init__(self, *args, **kwargs):
         super(ReviewForm, self).__init__(*args, **kwargs)
-        ticket_ids = Review.objects.values_list("ticket_id")
-        if "instance" in kwargs:
-            ticket_id = kwargs["instance"].ticket_id
-            ticket_ids = Review.objects.exclude(ticket_id=ticket_id).values_list(
-                "ticket_id"
-            )
-        self.fields["ticket"].queryset = Ticket.objects.exclude(id__in=ticket_ids)
+        CHOICES = [("0", " 0"),("1", " 1"),("2", " 2"),("3", " 3"),("4", " 4"),("5", " 5"),]
+        self.fields["rating"] = forms.ChoiceField(choices=CHOICES, required=True)
 
 
 class FollowUserForm(forms.ModelForm):
