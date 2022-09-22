@@ -32,6 +32,7 @@ import review.views
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", review.views.home_page, name="home"),
+    path("all-posts", review.views.all_posts, name="all-posts"),
     path("signup/", authentication.views.signup_page, name="signup"),
     path(
         "login/",

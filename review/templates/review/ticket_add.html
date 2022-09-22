@@ -1,18 +1,16 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
-<div class="container">
+  <div class="container">
     {% if title %}
-    <h3>Modification ticket : {{ title }}</h3>
+      <h3>Modification ticket : {{ title }}</h3>
     {% else %}
-    <h3>Nouveau ticket</h3>
+      <h3>Nouveau ticket</h3>
     {% endif %}
     <form action="" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input class="btn" type="submit" value="Valider">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <input class="btn" type="submit" value="Valider" />
     </form>
-</div>
-
-{% endblock content %}
+  </div>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% load custom_filters %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        {% comment %} <div class="col s10 offset-m1 center-align">
+            <h3 class>Bienvenue sur LITReview !</h3>
+        </div> {% endcomment %}
+        <div class="row">
+            <div class="col s10 offset-m1 center-align">
+                {% comment %} <a class="btn" href="{% url 'ticket-add' %}">Créer un ticket</a>
+                <a class="btn" href="{% url 'review-add' %}">Créer une review</a> {% endcomment %}
+                <h4>Tous mes posts</h4>
+            </div>
+        </div>
+    </div>
+    <br>
+    {% for post in posts %}
+    <div class="row">
+        <div class="col s10 offset-m1">
+            {% if post|objtype == "Review" %}
+            {% include 'review/review_snippet.html' %}
+            {% elif post|objtype == "Ticket" %}
+            {% include 'review/ticket_snippet.html' %}
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+
+{% endblock content %}

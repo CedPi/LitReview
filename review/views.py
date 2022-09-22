@@ -32,6 +32,23 @@ def home_page(request):
 
 
 @login_required
+def all_posts(request):
+    posts = []
+    # reviews = Review.objects.filter(user_id__in=followed_list)
+    tickets = Ticket.objects.filter(user_id=request.user.id)
+    reviews = Review.objects.filter(ticket__in=tickets)
+    closed_tickets = reviews.values_list("ticket_id", flat=True)
+    posts += list(reviews) + list(tickets)
+    posts.sort(key=lambda o: (o.time_created), reverse=True)
+    # print(closed_tickets)
+    return render(
+        request,
+        "review/all_posts.html",
+        context={"posts": posts, "closed_tickets": closed_tickets},
+    )
+
+
+@login_required
 def ticket_add(request):
     form = TicketForm(initial={"user": request.user})
     print(request.user)
